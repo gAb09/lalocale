@@ -17,9 +17,9 @@
 @section('contenu')
 
 
-	{{ Form::open(array('url' => URL::to('menus'), 'method' => 'post')) }}
+	{{ Form::open(array('url' => URL::action('MenuController@store'), 'method' => 'post')) }}
 
-@include('menus/form')
+@include('menus/views/form')
 
 @stop
 
