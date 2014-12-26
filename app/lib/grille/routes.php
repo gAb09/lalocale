@@ -17,3 +17,7 @@ Route::get('grille/grille', function(){
 	return View::make('grille/views/layout');
 });
 
+Route::get('grille/image', function(){
+	return View::make('grille/views/grille');
+});
+

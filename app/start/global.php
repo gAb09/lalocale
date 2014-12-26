@@ -73,7 +73,7 @@ App::error(function(ModelNotFoundException $e)
 
 App::missing(function($exception)
 {
-	$message = 'Oups… Désolé, cette page n\'existe pas !';
+	$message = 'Oups… Désolé, cette page n\'a pu être trouvée !';
 
     return View::Make('404')->with('message', $message);
 });

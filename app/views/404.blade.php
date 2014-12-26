@@ -1,8 +1,8 @@
-@extends('frontend/views/layout')
+@extends('tresorerie/views/layout')
 
 @section('titre')
 @parent
-: Page inexistante
+: Page Non trouvée
 
 @stop
 
