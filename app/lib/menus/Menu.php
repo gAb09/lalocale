@@ -35,7 +35,7 @@ class Menu extends Node {
   public static function listForInputSelect() {
     $menus = Menu::roots()->orderBy('id')->get();
 
-    $menuslist[0] = 'En faire un départ de menu';
+    $menuslist[0] = 'Faire de cet item une racine';
 
     foreach ($menus as $menu)
     {
