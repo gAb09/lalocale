@@ -15,7 +15,6 @@
 	<link href="/assets/css/tresorerie.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/style.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/grille.css" rel="stylesheet" type="text/css">
-	<script src="/assets/js/tresorerie.js"></script>
 
 </head>
 

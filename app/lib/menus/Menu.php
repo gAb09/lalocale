@@ -1,14 +1,12 @@
 <?php
 use Baum\Node;
-use lib\tresorerie\traits\ModelTrait;
+use lib\traits\ModelTrait as ModelTrait;
 
 
 /**
 * Menu
 */
 class Menu extends Node {
-  use ModelTrait;
-
   /**
    * Table name.
    *

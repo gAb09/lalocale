@@ -1,5 +1,5 @@
 <?php
-use lib\tresorerie\traits\ModelTrait;
+use Lib\traits\ModelTrait;
 
 class Role extends Eloquent {
   use ModelTrait;

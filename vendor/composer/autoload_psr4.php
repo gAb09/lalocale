@@ -6,8 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'lib\\tresorerie\\traits\\' => array($baseDir . '/app/lib/tresorerie/traits'),
+    'lib\\validations\\' => array($baseDir . '/app/lib/validations'),
     'lib\\dashboard\\' => array($baseDir . '/app/lib/dashboard'),
+    'Lib\\traits\\' => array($baseDir . '/app/lib/shared/traits'),
     'Gab\\NombresFr\\' => array($vendorDir . '/gab/nombres-fr/src/Gab/NombresFr'),
     'Gab\\DatesFr\\' => array($vendorDir . '/gab/dates-fr/src/Gab/DatesFr'),
 );

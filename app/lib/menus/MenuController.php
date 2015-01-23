@@ -46,7 +46,7 @@ class MenuController extends \BaseController {
 
 
 	public function store() {
-		// return 'Store un nouveau "Menu"';
+		return 'Store un nouveau "Menu" - Validations à faire';
 
 // dd(Input::all()); // CTRL
 		$publication = (Input::get('publication')) ? 1 : 0;
@@ -133,7 +133,7 @@ class MenuController extends \BaseController {
 		} else {
 			$menu->delete();
 			Session::flash('success', 'L’item "'.$menu->etiquette.'" a bien été supprimé');
-			return Redirect::to('menus');
+			return Redirect::action('MenuController@index');
 		}
 
 	}

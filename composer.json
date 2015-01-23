@@ -21,11 +21,13 @@
 			"app/database/migrations",
 			"app/database/seeds",
 			"app/tests/TestCase.php",
-			"app/lib"
+			"app/lib",
+			"app/modules"
 		],
 		"psr-4": {
 			"lib\\dashboard\\": "app/lib/dashboard",
-			"lib\\tresorerie\\traits\\": "app/lib/tresorerie/traits",
+			"lib\\validations\\": "app/lib/validations",
+			"Lib\\traits\\": "app/lib/shared/traits",
 			"Gab\\DatesFr\\": "vendor/gab/dates-fr/src/Gab/DatesFr",
 			"Gab\\NombresFr\\": "vendor/gab/nombres-fr/src/Gab/NombresFr"
 		}
