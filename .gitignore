@@ -8,4 +8,4 @@ LaLocale.sublime-project
 LaLocale.sublime-workspace
 ecritures.sql
 .ftpquota
-app/lib/tresorerie/.gitignore
+app/modules/tresorerie/.gitignore

@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-setlocale(LC_ALL, 'fr_FR');
+setlocale(LC_ALL, 'fr_FR.UTF8');
 
 
 \Debugbar::disable();
