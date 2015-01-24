@@ -2,6 +2,7 @@
 app/config/*
 vendor/*
 app/start/local.php
+app/start/global.php
 Tresorerie.sublime-project
 Tresorerie.sublime-workspace
 LaLocale.sublime-project
