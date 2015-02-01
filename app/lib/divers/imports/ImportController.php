@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ImportController extends BaseController {
 
-
+	private static $i = 0;
 
 
 	public static function importe()
@@ -13,28 +13,37 @@ class ImportController extends BaseController {
 
 		$imports->each(function($objet) use ($imports)
 		{
+			var_dump($objet->toArray());
 
 			$import = $objet['attributes'];
 			// var_dump($import);
 
 			$ecriture = new Ecriture;
 
-			$ecriture->date_emission = '2014-12-31 00-00-00';
-			$ecriture->date_valeur = self::transDate($import)['date'].' 00-00-00';
+			$dateOK = self::transDate($import)['date'];
+				// var_dump($dateOK);
+
+			$ecriture->date_emission = $dateOK;
+			$ecriture->date_valeur = $dateOK;
 			$ecriture->type_id = self::transType($import)['type'];
-			$ecriture->libelle = self::transLibelle($import)['libelle'];
-			$ecriture->libelle_detail = self::transLibelle($import)['libelle_detail'];
+			$ecriture->libelle = $import['libelle'];
+			$ecriture->libelle_detail = $import['detail'];
 			$ecriture->signe_id = self::transSigne($import)['signe'];
 			$ecriture->montant = NombresFr::sauv(self::transSigne($import)['montant']);
 			$ecriture->banque_id = 1;
-			$ecriture->compte_id = 5;
+			$ecriture->compte_id = 1;
 			$ecriture->is_double = null;
+
+			self::$i++;
+
+			// var_dump(self::$i);
+			var_dump($ecriture['attributes']);
 
 			$ecriture->save();
 
-			var_dump($ecriture['attributes']);
 		});
 
+		dd(self::$i);
 		// return var_dump($imports);
 	}
 
@@ -42,12 +51,12 @@ class ImportController extends BaseController {
 	{
 		if(is_null($import['date']))
 		{
-			$import['date'] = '2014/12/31';
+			$import['date'] = '2015-12-31';
 			return $import;
 		}
 
 		$parts = explode('/', $import['date']);
-		$import['date'] = implode('-', [$parts[2], $parts[1], $parts[0]]);
+		$import['date'] = implode('-', [$parts[2], $parts[1], $parts[0]]).' 00:00:00';
 		// var_dump($import['date']);
 
 		return $import;
@@ -58,7 +67,7 @@ class ImportController extends BaseController {
 	{
 		if(is_null($import['type']))
 		{
-			$import['type'] = 99;
+			$import['type'] = 10;
 			return $import;
 		}
 
@@ -75,61 +84,66 @@ class ImportController extends BaseController {
 			$import['type'] = 1;
 			break;
 			
+			case 'Chèque':
+			$import['type'] = 2;
+			break;
+			
 			case 'Virement':
 			$import['type'] = 3;
 			break;
 			
+			case 'CB achat':
+			$import['type'] = 4;
+			break;
+
 			case 'Remise chq':
 			$import['type'] = 5;
 			break;
 
-			case 'Dépôt espèces':
+			case 'CB achat internet':
+			$import['type'] = 7;
+			break;
+
+			case 'TIP':
+			$import['type'] = 8;
+			break;
+			
+			case 'Report':
+			$import['type'] = 9;
+			break;
+			
+			case 'Indéfini':
+			$import['type'] = 10;
+			break;
+			
+			case 'Mouvement espèces':
+			$import['type'] = 11;
+			break;
+			
+			case 'Espèces retrait':
 			$import['type'] = 12;
 			break;
 			
-			case 'Paiement CB':
-			$import['type'] = 7;
-			break;
-			
-			case 'Virement interne':
+			case 'Espèces dépôt':
 			$import['type'] = 13;
 			break;
 			
 			default:
-			$import['type'] = 99;
+			$import['type'] = 10;
 			break;
 		}
 		return $import;
 
 	}
 
-	public static function transLibelle($import)
-	{
-		if(is_null($import['libelle']))
-		{
-			$import['libelle'] = '?????';
-			$import['libelle_detail'] = '';
-			return $import;
-		}
-
-		if(strpbrk($import['libelle'], ' ') == true)
-		{
-			$import['libelle_detail'] = ltrim(strpbrk($import['libelle'], ' '));
-		}else{
-			$import['libelle_detail'] = '';
-		}
-		$import['libelle'] = explode(' ', $import['libelle'])[0];
-		return $import;
-	}
-
 	public static function transSigne($import)
 	{
-		if(is_null($import['debit']))
+		if( is_null($import['depense']) or empty($import['depense']) )
 		{
-			$import['montant'] =$import['credit'];
+			$import['montant'] =$import['recette'];
 			$import['signe'] = 2;
 		}else{
-			$import['montant'] = $import['debit'];
+			$import['montant'] = $import['depense'];
 			$import['signe'] = 1;
 		}
 
