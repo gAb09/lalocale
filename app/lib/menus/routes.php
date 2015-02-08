@@ -1,4 +1,5 @@
 <?php
+
 	/*----------------------  Menus  ----------------------------------*/
 Route::group(array('prefix' => 'admin', 'before' => array('auth', 'admin')), function() 
 {

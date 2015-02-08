@@ -1,12 +1,12 @@
 <?php
 use Baum\Node;
-use lib\traits\ModelTrait as ModelTrait;
 
 
 /**
 * Menu
 */
 class Menu extends Node {
+
   /**
    * Table name.
    *
@@ -67,18 +67,5 @@ class Menu extends Node {
     return $collection;
   }
 
-  /* —————————  Créer un objet Menu pour le formulaire de création  —————————————————*/
-
-  public static function fillFormForCreate()
-  {
-    $menu = new Menu();
-    $strings = [
-    'nom_sys' => 'Saisir un nom “système”',
-    'publication' => 0,
-    'description' => CREATE_FORM_DEFAUT_TXT_DESCRIPTION,
-    ];
-    $menu->fill($strings);
-    return $menu;
-  }
 }
   /* —————————  MUTATORS  —————————————————*/
