@@ -12,7 +12,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/bootstrap-responsive.min.css" rel="stylesheet">
-	<link href="/assets/tresorerie/css/tresorerie.css" rel="stylesheet" type="text/css">
+	<link href="/assets/tresorerie/css/base.css" rel="stylesheet" type="text/css">
+	<link href="/assets/tresorerie/css/layout.css" rel="stylesheet" type="text/css">
+	<link href="/assets/tresorerie/css/tableaux.css" rel="stylesheet" type="text/css">
+	<link href="/assets/tresorerie/css/footer.css" rel="stylesheet" type="text/css">
 	<link href="/assets/css/style.css" rel="stylesheet" type="text/css">
 	<script src="/assets/tresorerie/js/tresorerie.js"></script>
 
@@ -85,39 +88,9 @@
 		<footer>
 			<hr>
 			@section('tresorerie/footer')
-			© gAb
+				© gAb – Tresorerie version 1.1 - layout de menus
 			@show
 		</footer>
-
-		<!-- - - - - - - - - - - - - - - - BARRE COMMANDES (Zapette) - - - - - - - - - - - - - - -->
-
-		<div class="zapette">
-			<div class="zapette_actions">
-				@yield('zapette')
-			</div>
-
-			<p class="zapette_infos">
-				 • • • <span>Version 1 - Layout de menus</span> • • •
-			</p>
-
-			@if(App::environment() != 'o2switch')
-			<p class="zapette_infos">
-				<span>Environnement : {{App::environment()}}</span>
-				<span>•••</span>
-				<span>Nombre par page : {{Session::get('Courant.nbre_par_page')}}</span>
-				<span>•</span>
-				<span>Tri (paramètre) : {{Session::get('Courant.tri')}}</span>
-				<span>•</span>
-				<span>Tri (sens) : {{Session::get('Courant.tri_sens')}}</span>
-				<span>•••</span>
-				<span>Classe de compte : {{Session::get('Courant.classe')}}</span>
-				<span>•••</span>
-				<span>Base de données : {{DB::getDatabaseName()}}</span>
-			</p>
-			@endif
-
-		</div>
-
 		
 		@section('script')
 
