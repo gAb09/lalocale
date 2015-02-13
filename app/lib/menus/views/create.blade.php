@@ -5,13 +5,10 @@
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 		<h1 class="titrepage">{{$titre_page}}</h1>
 @stop
 
-
-@section('topcontent2')
-@stop
 
 
 @section('contenu')
@@ -23,11 +20,14 @@
 
 @stop
 
-@section('zapette')
+@section('actions')
 {{ link_to_action('MenuController@index', 'Retour à la liste', null, array('class' => 'btn btn-info btn-zapette iconesmall list')); }}
 
 {{ Form::submit('Créer ce menu', array('class' => 'btn btn-success')) }}
 {{ Form::close() }}
+@stop
+
+@section('affichage')
 @stop
 
 

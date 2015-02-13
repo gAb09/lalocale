@@ -52,27 +52,23 @@
 			</nav>
 
 
-			<!-- - - - - - - - - - - - - - - - USER / DECONNEXION - - - - - - - - - - - - - - -->
-
-			<div class="span3 user_widget">
-				@include('shared/views/user_widget')
-			</div>
-
-		</header>
-
 		<!-- - - - - - - - - - - - - - - - TOP CONTENT (2 zones) - - - - - - - - - - - - - - -->
 
 
-		<div class="row-fluid" style="padding-bottom:5px">
+		<div class="row-fluid topcontent">
 
-			<div class="span6">
-				@yield('topcontent1')
+			<!-- - - - - - - - - - - - - - TITREPAGE - - - - - - - - - - - - - - -->
+			<div class="span9 titrepage">
+				@yield('titrepage')
 			</div>
 
-			<div class="span6">
-				@yield('topcontent2')
+
+			<!-- - - - - - - - - - - - - - - - USER / DECONNEXION - - - - - - - - - - - - - - -->
+			<div class="span3 user_widget">
+				@include('shared/views/user_widget')
 			</div> 
 		</div>
+
 
 		<!-- - - - - - - - - - - - - - - - CONTENU - - - - - - - - - - - - - - -->
 

@@ -5,13 +5,10 @@
 @stop
 
 
-@section('topcontent1')
+@section('titrepage')
 		<h1 class="titrepage">{{$titre_page}}</h1>
 @stop
 
-
-@section('topcontent2')
-@stop
 
 
 @section('contenu')
@@ -150,10 +147,11 @@
 		@endif <!-- $menu->isRoot() ? -->
 		@endforeach <!-- Fin foreach $menu -->
 
-	@section('zapette')
+	@section('actions')
 		<a href ="{{ URL::action('MenuController@create') }}" class="badge badge-locale iconemedium add"
 		style="font-size:1.1em">Créer un menu ou un item de menu</a>
 	@stop
 
-	</div>
-	@stop
+@section('affichage')
+@stop
+
