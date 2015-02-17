@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'lib\\dashboard\\' => array($baseDir . '/app/lib/dashboard'),
+    'Tresorerie\\Validations\\' => array($baseDir . '/app/modules/tresorerie/validations'),
     'Tresorerie\\Domaines\\' => array($baseDir . '/app/modules/tresorerie/domaines'),
     'Gab\\NombresFr\\' => array($vendorDir . '/gab/nombres-fr/src/Gab/NombresFr'),
     'Gab\\Domaines\\' => array($vendorDir . '/gab/domaines/src/Gab/Domaines'),
