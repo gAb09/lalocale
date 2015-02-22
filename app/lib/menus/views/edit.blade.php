@@ -6,7 +6,7 @@
 
 
 @section('titrepage')
-		<h1 class="titrepage">{{$titre_page}} “{{$menu->etiquette}}” <small>(Id {{$menu->id}})</small></h1>
+		<h1>{{$titre_page}} “{{$menu->etiquette}}” <small>(Id {{$menu->id}})</small></h1>
 @stop
 
 
