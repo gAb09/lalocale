@@ -147,6 +147,8 @@
 		@endif <!-- $menu->isRoot() ? -->
 		@endforeach <!-- Fin foreach $menu -->
 
+	@stop
+
 	@section('actions')
 		<a href ="{{ URL::action('MenuController@create') }}" class="badge badge-locale iconemedium add"
 		style="font-size:1.1em">Créer un menu ou un item de menu</a>

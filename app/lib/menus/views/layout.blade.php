@@ -51,6 +51,8 @@
 				@include('menus/views/menus')
 			</nav>
 
+		</header>
+
 
 		<!-- - - - - - - - - - - - - - - - TOP CONTENT (2 zones) - - - - - - - - - - - - - - -->
 
@@ -58,7 +60,7 @@
 		<div class="row-fluid topcontent">
 
 			<!-- - - - - - - - - - - - - - TITREPAGE - - - - - - - - - - - - - - -->
-			<div class="span9 titrepage">
+			<div class="span8 titrepage">
 				@yield('titrepage')
 			</div>
 
@@ -72,24 +74,41 @@
 
 		<!-- - - - - - - - - - - - - - - - CONTENU - - - - - - - - - - - - - - -->
 
-		<div class="row-fluid">
+		<div class="row-fluid content">
 			<div>
 				@yield('contenu')
 			</div>
 		</div>
+	</div>
 
 
-		<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
+	<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
 
-		<footer>
-			<hr>
+	<footer>
+
+		<div class="span12 row-fluid topfooter">
+
+
+
+			<!-- - - - - - - - - - - - - - - - ACTIONS - - - - - - - - - - - - - - -->
+			<div class="span6 actions">
+				@yield('actions')
+			</div>
+
+			<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
+			<div class="span6 affichage">
+				@yield('affichage')
+			</div>
+		</div>
+		<div>
 			@section('tresorerie/footer')
-				© gAb – Tresorerie version 1.1 - layout de menus
+			© gAb – Tresorerie version 1.3
 			@show
-		</footer>
-		
-		@section('script')
+		</div>
+	</footer>
+	
+	@section('script')
 
-		@show
-	</body>
-	</html>
+	@show
+</body>
+</html>

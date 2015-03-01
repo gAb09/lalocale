@@ -65,6 +65,8 @@ return array(
     'StatutDomaine' => $baseDir . '/app/modules/tresorerie/domaines/StatutDomaine.php',
     'TestCase' => $baseDir . '/app/tests/TestCase.php',
     'Tresorerie\\Domaines\\TraitDomaine' => $baseDir . '/app/modules/tresorerie/domaines/TraitDomaine.php',
+    'Tresorerie\\Providers\\EcritureEventSubscriber' => $baseDir . '/app/modules/tresorerie/providers/EcritureEventSubscriber.php',
+    'Tresorerie\\Providers\\EventServiceProvider' => $baseDir . '/app/modules/tresorerie/providers/EventServiceProvider.php',
     'Type' => $baseDir . '/app/modules/tresorerie/models/Type.php',
     'TypeController' => $baseDir . '/app/modules/tresorerie/controllers/TypeController.php',
     'TypeDomaine' => $baseDir . '/app/modules/tresorerie/domaines/TypeDomaine.php',
