@@ -1,0 +1,7 @@
+@charset "utf-8";
+
+/* +++++++++++++++++++++++++++++++++++++++++++++  BASE  (éléments html de base ) +++++++++++++++++++++++++++++++++++++++++++++++++++++ */
+/* –––––––––––––––––––– Évite que le bas de la pdiv "content" passe sous le footer  –––––––––––––––––––––––– */
+.chassebaspage {
+    height: 60px;
+}
