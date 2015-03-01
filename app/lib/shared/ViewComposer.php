@@ -45,7 +45,7 @@ View::composer(array('menus/views/menus'), function($view) {
 
 
 
-View::composer('tresorerie/views/ecritures/form', function($view)
+View::composer(array('tresorerie/views/ecritures/form', 'tresorerie/views/reports/form'), function($view)
 {
 	/* Lister les séparateurs pour le javascript */
 	$types = Type::all();
