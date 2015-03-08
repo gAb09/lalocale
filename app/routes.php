@@ -32,13 +32,10 @@ Route::get('admin', function()
 	return Redirect::to('admin/menus');
 });
 
-
-
-
-
-
-
-
+/*
+|--------------------------------------------------------------------------
+| Chargement des fichiers de routes des modules
+|--------------------------------------------------------------------------*/
 
 require_once("modules/tresorerie/routes.php");
 
