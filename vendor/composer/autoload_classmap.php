@@ -31,6 +31,7 @@ return array(
     'Ecriture' => $baseDir . '/app/modules/tresorerie/models/Ecriture.php',
     'EcritureController' => $baseDir . '/app/modules/tresorerie/controllers/EcritureController.php',
     'EcritureDomaine' => $baseDir . '/app/modules/tresorerie/domaines/EcritureDomaine.php',
+    'ExerciceDomaine' => $baseDir . '/app/modules/tresorerie/domaines/ExerciceDomaine.php',
     'ExportController' => $baseDir . '/app/modules/tresorerie/controllers/ExportController.php',
     'ExportDomaine' => $baseDir . '/app/modules/tresorerie/domaines/ExportDomaine.php',
     'IdentificationController' => $baseDir . '/app/lib/identification/IdentificationController.php',
