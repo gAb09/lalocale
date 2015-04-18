@@ -94,12 +94,12 @@
 
 			<!-- - - - - - - - - - - - - - - - ACTIONS - - - - - - - - - - - - - - -->
 			<div class="span6 actions">
-				@yield('actions')
+				@yield('topfoot1')
 			</div>
 
 			<!-- - - - - - - - - - - - - - - - AFFICHAGE - - - - - - - - - - - - - - -->
 			<div class="span6 affichage">
-				@yield('affichage')
+				@yield('topfoot2')
 			</div>
 		</div>
 		<div>

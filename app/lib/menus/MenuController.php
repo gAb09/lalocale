@@ -108,7 +108,7 @@ class MenuController extends \BaseController {
 			$menu->makeChildOf(Menu::findOrFail($parent_id));
 		}else{
 			if ($menu->parent_id !== null) {
-			$menu->makeRoot();
+				$menu->makeRoot();
 			}
 		}
 
@@ -133,7 +133,7 @@ class MenuController extends \BaseController {
 		} else {
 			$menu->delete();
 			Session::flash('success', 'L’item "'.$menu->etiquette.'" a bien été supprimé');
-			return Redirect::to('menus');
+			return Redirect::action('MenuController@index');
 		}
 
 	}

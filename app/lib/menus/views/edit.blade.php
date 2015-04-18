@@ -21,7 +21,7 @@
 
 
 
-@section('actions')
+@section('topfoot1')
 {{ link_to_action('MenuController@index', 'Retour à la liste', null, array('class' => 'btn btn-info btn-zapette iconesmall list')); }}
 
 {{ Form::submit('Modifier ce menu', array('class' => 'btn btn-edit btn-zapette')) }}
