@@ -235,8 +235,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 		$this->syncOriginal();
 
 		$this->fill($attributes);
-
-}
+	}
 
 	/**
 	 * The "booting" method of the model.
@@ -260,7 +259,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 
 				static::$mutatorCache[$class][] = lcfirst($matches[1]);
 			}
-}
+		}
 	}
 
 	/**
@@ -441,8 +440,7 @@ abstract class Model implements ArrayAccess, ArrayableInterface, JsonableInterfa
 	}
 
 	/**
-	 * Begin querying the model on a given 
-	 .
+	 * Begin querying the model on a given connection.
 	 *
 	 * @param  string  $connection
 	 * @return \Illuminate\Database\Eloquent\Builder|static

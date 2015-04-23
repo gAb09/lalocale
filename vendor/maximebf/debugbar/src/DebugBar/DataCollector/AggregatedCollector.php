@@ -100,9 +100,6 @@ class AggregatedCollector implements DataCollectorInterface, ArrayAccess
         return $this->sort;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function collect()
     {
         $aggregate = array();
@@ -127,21 +124,18 @@ class AggregatedCollector implements DataCollectorInterface, ArrayAccess
     {
         if (is_string($this->sort)) {
             $p = $this->sort;
-            usort($data, function($a, $b) use ($p) {
+            usort($data, function ($a, $b) use ($p) {
                 if ($a[$p] == $b[$p]) {
                     return 0;
                 }
                 return $a[$p] < $b[$p] ? -1 : 1;
             });
-        } else if ($this->sort === true) {
+        } elseif ($this->sort === true) {
             sort($data);
         }
         return $data;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     public function getName()
     {
         return $this->name;

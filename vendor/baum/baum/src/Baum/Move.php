@@ -23,7 +23,7 @@ class Move {
   protected $target = NULL;
 
   /**
-  * Move target position, one of: child, left, right
+  * Move target position, one of: child, left, right, root
   *
   * @var string
   */
@@ -49,13 +49,6 @@ class Move {
   * @var array
   */
   protected $_boundaries = NULL;
-
-  /**
-  * Memoized new parent id for the node being moved.
-  *
-  * @var int
-  */
-  protected $_parentId = NULL;
 
   /**
    * The event dispatcher instance.
@@ -114,10 +107,7 @@ class Move {
 
       $this->target->reload();
 
-      $this->node->setDepth();
-
-      foreach($this->node->getDescendants() as $descendant)
-        $descendant->save();
+      $this->node->setDepthWithSubtree();
 
       $this->node->reload();
     }
@@ -136,11 +126,14 @@ class Move {
   public function updateStructure() {
     list($a, $b, $c, $d) = $this->boundaries();
 
+    // select the rows between the leftmost & the rightmost boundaries and apply a lock
+    $this->applyLockBetween($a, $d);
+
     $connection = $this->node->getConnection();
     $grammar    = $connection->getQueryGrammar();
 
-    $currentId      = $this->node->getKey();
-    $parentId       = $this->parentId();
+    $currentId      = $this->quoteIdentifier($this->node->getKey());
+    $parentId       = $this->quoteIdentifier($this->parentId());
     $leftColumn     = $this->node->getLeftColumnName();
     $rightColumn    = $this->node->getRightColumnName();
     $parentColumn   = $this->node->getParentColumnName();
@@ -163,17 +156,22 @@ class Move {
       WHEN $wrappedId = $currentId THEN $parentId
       ELSE $wrappedParent END";
 
+    $updateConditions = array(
+      $leftColumn   => $connection->raw($lftSql),
+      $rightColumn  => $connection->raw($rgtSql),
+      $parentColumn => $connection->raw($parentSql)
+    );
+
+    if ( $this->node->timestamps )
+      $updateConditions[$this->node->getUpdatedAtColumn()] = $this->node->freshTimestamp();
+
     return $this->node
                 ->newNestedSetQuery()
                 ->where(function($query) use ($leftColumn, $rightColumn, $a, $d) {
                   $query->whereBetween($leftColumn, array($a, $d))
                         ->orWhereBetween($rightColumn, array($a, $d));
                 })
-                ->update(array(
-                  $leftColumn   => $connection->raw($lftSql),
-                  $rightColumn  => $connection->raw($rgtSql),
-                  $parentColumn => $connection->raw($parentSql)
-                ));
+                ->update($updateConditions);
   }
 
   /**
@@ -199,24 +197,26 @@ class Move {
     if ( !$this->node->exists )
       throw new MoveNotPossibleException('A new node cannot be moved.');
 
-    if ( array_search($this->position, array('child', 'left', 'right')) === FALSE )
+    if ( array_search($this->position, array('child', 'left', 'right', 'root')) === FALSE )
       throw new MoveNotPossibleException("Position should be one of ['child', 'left', 'right'] but is {$this->position}.");
 
-    if ( is_null($this->target) ) {
-      if ( $this->position === 'left' || $this->position === 'right' )
-        throw new MoveNotPossibleException("Could not resolve target node. This node cannot move any further to the {$this->position}.");
-      else
-        throw new MoveNotPossibleException('Could not resolve target node.');
+    if ( !$this->promotingToRoot() ) {
+      if ( is_null($this->target) ) {
+        if ( $this->position === 'left' || $this->position === 'right' )
+          throw new MoveNotPossibleException("Could not resolve target node. This node cannot move any further to the {$this->position}.");
+        else
+          throw new MoveNotPossibleException('Could not resolve target node.');
+      }
+
+      if ( $this->node->equals($this->target) )
+        throw new MoveNotPossibleException('A node cannot be moved to itself.');
+
+      if ( $this->target->insideSubtree($this->node) )
+        throw new MoveNotPossibleException('A node cannot be moved to a descendant of itself (inside moved tree).');
+
+      if ( !$this->node->inSameScope($this->target) )
+        throw new MoveNotPossibleException('A node cannot be moved to a different scope.');
     }
-
-    if ( $this->node->equals($this->target) )
-      throw new MoveNotPossibleException('A node cannot be moved to itself.');
-
-    if ( $this->target->insideSubtree($this->node) )
-      throw new MoveNotPossibleException('A node cannot be moved to a descendant of itself (inside moved tree).');
-
-    if ( !$this->node->inSameScope($this->target) )
-      throw new MoveNotPossibleException('A node cannot be moved to a different scope.');
   }
 
   /**
@@ -238,6 +238,10 @@ class Move {
 
       case 'right':
         $this->_bound1 = $this->target->getRight() + 1;
+        break;
+
+      case 'root':
+        $this->_bound1 = $this->node->newNestedSetQuery()->max($this->node->getRightColumnName()) + 1;
         break;
     }
 
@@ -285,16 +289,16 @@ class Move {
    * @return int
    */
   protected function parentId() {
-    if ( !is_null($this->_parentId) ) return $this->_parentId;
+    switch( $this->position ) {
+      case 'root':
+        return NULL;
 
-    $this->_parentId = $this->target->getParentId();
-    if ( $this->position == 'child' )
-      $this->_parentId = $this->target->getKey();
+      case 'child':
+        return $this->target->getKey();
 
-    // We are probably dealing with a root node here
-    if ( is_null($this->_parentId) ) $this->_parentId = 'NULL';
-
-    return $this->_parentId;
+      default:
+        return $this->target->getParentId();
+    }
   }
 
   /**
@@ -304,6 +308,15 @@ class Move {
    */
   protected function hasChange() {
     return !( $this->bound1() == $this->node->getRight() || $this->bound1() == $this->node->getLeft() );
+  }
+
+  /**
+   * Check if we are promoting the provided instance to a root node.
+   *
+   * @return boolean
+   */
+  protected function promotingToRoot() {
+    return ($this->position == 'root');
   }
 
   /**
@@ -344,4 +357,36 @@ class Move {
     return static::$dispatcher->$method($event, $this->node);
   }
 
+  /**
+   * Quotes an identifier for being used in a database query.
+   *
+   * @param mixed $value
+   * @return string
+   */
+  protected function quoteIdentifier($value) {
+    if ( is_null($value) )
+      return 'NULL';
+
+    $connection = $this->node->getConnection();
+
+    $pdo = $connection->getPdo();
+
+    return $pdo->quote($value);
+  }
+
+  /**
+   * Applies a lock to the rows between the supplied index boundaries.
+   *
+   * @param   int   $lft
+   * @param   int   $rgt
+   * @return  void
+   */
+  protected function applyLockBetween($lft, $rgt) {
+    $this->node->newQuery()
+      ->where($this->node->getLeftColumnName(), '>=', $lft)
+      ->where($this->node->getRightColumnName(), '<=', $rgt)
+      ->select($this->node->getKeyName())
+      ->lockForUpdate()
+      ->get();
+  }
 }

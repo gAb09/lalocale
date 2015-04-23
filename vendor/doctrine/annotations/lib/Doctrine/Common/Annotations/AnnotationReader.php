@@ -98,6 +98,8 @@ class AnnotationReader implements Reader
         'noinspection' => true,
         // PEAR
         'package_version' => true,
+        // PlantUML
+        'startuml' => true, 'enduml' => true,
     );
 
     /**
@@ -111,21 +113,21 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Annotations Parser
+     * Annotations parser.
      *
      * @var \Doctrine\Common\Annotations\DocParser
      */
     private $parser;
 
     /**
-     * Annotations Parser used to collect parsing metadata
+     * Annotations parser used to collect parsing metadata.
      *
      * @var \Doctrine\Common\Annotations\DocParser
      */
     private $preParser;
 
     /**
-     * PHP Parser used to collect imports.
+     * PHP parser used to collect imports.
      *
      * @var \Doctrine\Common\Annotations\PhpParser
      */
@@ -156,8 +158,17 @@ class AnnotationReader implements Reader
             throw AnnotationException::optimizerPlusSaveComments();
         }
 
-        if (extension_loaded('opcache') && ini_get('opcache.save_comments') == 0) {
+        if (extension_loaded('Zend OPcache') && ini_get('opcache.save_comments') == 0) {
             throw AnnotationException::optimizerPlusSaveComments();
+        }
+
+
+        if (extension_loaded('Zend Optimizer+') && (ini_get('zend_optimizerplus.load_comments') === "0" || ini_get('opcache.load_comments') === "0")) {
+            throw AnnotationException::optimizerPlusLoadComments();
+        }
+
+        if (extension_loaded('Zend OPcache') && ini_get('opcache.load_comments') == 0) {
+            throw AnnotationException::optimizerPlusLoadComments();
         }
 
         AnnotationRegistry::registerFile(__DIR__ . '/Annotation/IgnoreAnnotation.php');
@@ -172,12 +183,7 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Gets the annotations applied to a class.
-     *
-     * @param \ReflectionClass $class The ReflectionClass of the class from which
-     *                                the class annotations should be read.
-     *
-     * @return array An array of Annotations.
+     * {@inheritDoc}
      */
     public function getClassAnnotations(ReflectionClass $class)
     {
@@ -189,13 +195,7 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Gets a class annotation.
-     *
-     * @param \ReflectionClass $class          The ReflectionClass of the class from which
-     *                                         the class annotations should be read.
-     * @param string           $annotationName The name of the annotation.
-     *
-     * @return mixed The Annotation or NULL, if the requested annotation does not exist.
+     * {@inheritDoc}
      */
     public function getClassAnnotation(ReflectionClass $class, $annotationName)
     {
@@ -211,12 +211,7 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Gets the annotations applied to a property.
-     *
-     * @param \ReflectionProperty $property The ReflectionProperty of the property
-     *                                      from which the annotations should be read.
-     *
-     * @return array An array of Annotations.
+     * {@inheritDoc}
      */
     public function getPropertyAnnotations(ReflectionProperty $property)
     {
@@ -231,12 +226,7 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Gets a property annotation.
-     *
-     * @param \ReflectionProperty $property
-     * @param string              $annotationName The name of the annotation.
-     *
-     * @return mixed The Annotation or NULL, if the requested annotation does not exist.
+     * {@inheritDoc}
      */
     public function getPropertyAnnotation(ReflectionProperty $property, $annotationName)
     {
@@ -252,12 +242,7 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Gets the annotations applied to a method.
-     *
-     * @param \ReflectionMethod $method The ReflectionMethod of the method from which
-     *                                  the annotations should be read.
-     *
-     * @return array An array of Annotations.
+     * {@inheritDoc}
      */
     public function getMethodAnnotations(ReflectionMethod $method)
     {
@@ -272,12 +257,7 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Gets a method annotation.
-     *
-     * @param \ReflectionMethod $method
-     * @param string            $annotationName The name of the annotation.
-     *
-     * @return mixed The Annotation or NULL, if the requested annotation does not exist.
+     * {@inheritDoc}
      */
     public function getMethodAnnotation(ReflectionMethod $method, $annotationName)
     {
@@ -311,7 +291,7 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Retrieve imports
+     * Retrieves imports.
      *
      * @param \ReflectionClass $class
      *
@@ -329,7 +309,7 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Retrieve imports for methods
+     * Retrieves imports for methods.
      *
      * @param \ReflectionMethod $method
      *
@@ -357,9 +337,9 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Retrieve Imports for properties
+     * Retrieves imports for properties.
      *
-     * @param ReflectionProperty $property
+     * @param \ReflectionProperty $property
      *
      * @return array
      */
@@ -383,7 +363,7 @@ class AnnotationReader implements Reader
     }
 
     /**
-     * Collects parsing metadata for a given class
+     * Collects parsing metadata for a given class.
      *
      * @param \ReflectionClass $class
      */

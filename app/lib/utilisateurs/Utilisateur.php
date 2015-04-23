@@ -20,10 +20,10 @@ class Utilisateur extends Eloquent implements UserInterface, RemindableInterface
 	 *
 	 * @var array
 	 */
-  public function role()
-  {
-    return $this->belongsTo('Role');
-  }
+	public function role()
+	{
+		return $this->belongsTo('Role');
+	}
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -60,6 +60,33 @@ class Utilisateur extends Eloquent implements UserInterface, RemindableInterface
 	public function getReminderEmail()
 	{
 		return $this->email;
+	}
+
+	/**
+	 * Get the token value for the "remember me" session.
+	 *
+	 * @return string
+	 */
+	public function getRememberToken()
+	{
+	}
+	/**
+	 * Set the token value for the "remember me" session.
+	 *
+	 * @param  string  $value
+	 * @return void
+	 */
+	public function setRememberToken($value)
+	{
+	}
+
+	/**
+	 * Get the column name for the "remember me" token.
+	 *
+	 * @return string
+	 */
+	public function getRememberTokenName()
+	{
 	}
 
 }

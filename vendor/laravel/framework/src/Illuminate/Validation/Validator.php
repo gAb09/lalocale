@@ -1564,7 +1564,6 @@ class Validator implements MessageProviderInterface {
 		return str_getcsv($parameter);
 	}
 
-
 	/**
 	 * Get the array of custom validator extensions.
 	 *

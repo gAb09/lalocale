@@ -10,7 +10,10 @@ return array(
     'Tresorerie\\Validations\\' => array($baseDir . '/app/modules/tresorerie/validations'),
     'Tresorerie\\Providers\\' => array($baseDir . '/app/modules/tresorerie/providers'),
     'Tresorerie\\Domaines\\' => array($baseDir . '/app/modules/tresorerie/domaines'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Gab\\NombresFr\\' => array($vendorDir . '/gab/nombres-fr/src/Gab/NombresFr'),
     'Gab\\Domaines\\' => array($vendorDir . '/gab/domaines/src/Gab/Domaines'),
     'Gab\\DatesFr\\' => array($vendorDir . '/gab/dates-fr/src/Gab/DatesFr'),
+    'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
 );
