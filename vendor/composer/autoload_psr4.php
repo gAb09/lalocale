@@ -13,7 +13,6 @@ return array(
     'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Gab\\NombresFr\\' => array($vendorDir . '/gab/nombres-fr/src/Gab/NombresFr'),
-    'Gab\\Domaines\\' => array($vendorDir . '/gab/domaines/src/Gab/Domaines'),
     'Gab\\DatesFr\\' => array($vendorDir . '/gab/dates-fr/src/Gab/DatesFr'),
     'Barryvdh\\Debugbar\\' => array($vendorDir . '/barryvdh/laravel-debugbar/src'),
 );
