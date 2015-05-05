@@ -94,3 +94,5 @@ class Utilisateur extends Eloquent implements UserInterface, RemindableInterface
 	}
 
 }
+
+
