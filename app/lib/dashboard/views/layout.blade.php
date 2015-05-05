@@ -46,50 +46,50 @@
 
 			<!-- - - - - - - - - - - - - - SOUS MENU - - - - - - - - - - - - - - -->
 
-			<nav class="navbar menus span9">
+			<nav class="navbar menus span8">
 				@include('menus/views/menus')
 			</nav>
 
 
-		<!-- - - - - - - - - - - - - - - - TOP CONTENT (2 zones) - - - - - - - - - - - - - - -->
+			<!-- - - - - - - - - - - - - - - - TOP CONTENT (2 zones) - - - - - - - - - - - - - - -->
 
 
-		<div class="row-fluid topcontent">
+			<div class="row-fluid topcontent">
 
-			<!-- - - - - - - - - - - - - - TITREPAGE - - - - - - - - - - - - - - -->
-			<div class="span9 titrepage">
-				@yield('titrepage')
+				<!-- - - - - - - - - - - - - - TITREPAGE - - - - - - - - - - - - - - -->
+				<div class="span8 titrepage">
+					@yield('titrepage')
+				</div>
+
+
+				<!-- - - - - - - - - - - - - - - - USER / DECONNEXION - - - - - - - - - - - - - - -->
+				<div class="span3 user_widget">
+					@include('shared/views/user_widget')
+				</div> 
+			</div>
+
+			<!-- - - - - - - - - - - - - - - - CONTENU - - - - - - - - - - - - - - -->
+
+			<div class="row-fluid content">
+				<div>
+					@yield('contenu')
+				</div>
 			</div>
 
 
-			<!-- - - - - - - - - - - - - - - - USER / DECONNEXION - - - - - - - - - - - - - - -->
-			<div class="span3 user_widget">
-				@include('shared/views/user_widget')
-			</div> 
-		</div>
+			<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
 
-		<!-- - - - - - - - - - - - - - - - CONTENU - - - - - - - - - - - - - - -->
-
-		<div class="row-fluid">
-			<div>
-				@yield('contenu')
-			</div>
-		</div>
-
-
-		<!-- - - - - - - - - - - - - - - - FOOTER - - - - - - - - - - - - - - -->
-
-		<footer>
-			<hr>
-			@section('tresorerie/footer')
+			<footer>
+				<hr>
+				@section('tresorerie/footer')
 				© gAb – Tresorerie version 1.1 - layout de dashboard
+				@show
+			</footer>
+
+
+
+			@section('script')
+
 			@show
-		</footer>
-
-
-		
-		@section('script')
-
-		@show
-	</body>
-	</html>
+		</body>
+		</html>

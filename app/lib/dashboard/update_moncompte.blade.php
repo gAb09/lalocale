@@ -3,7 +3,7 @@
 @section('contenu')
 
 <div>
-{{ Form::open(['method' => 'put', 'action' => ['UtilisateurController@update', Auth::user()->id] ] ) }}
+	{{ Form::open(['method' => 'put', 'action' => ['UtilisateurController@update', Auth::user()->id] ] ) }}
 
 	{{ Form::label('login', 'Login', array ('class' => '')) }}
 	{{ Form::text('login', Auth::user()->login, array ('class' => '')) }}

@@ -1032,7 +1032,7 @@ abstract class Node extends Model {
    * @return void
    */
   public function setDefaultLeftAndRight() {
-    $withHighestRight = $this->newNestedSetQuery()->reOrderBy($this->getRightColumnName(), 'desc')->take(1)->sharedLock()->first();
+    $withHighestRight = $this->newNestedSetQuery()->reOrderBy($this->getRightColumnName(), 'desc')->take(1)/*->sharedLock()*/->first();
 
     $maxRgt = 0;
     if ( !is_null($withHighestRight) ) $maxRgt = $withHighestRight->getRight();
@@ -1099,7 +1099,7 @@ abstract class Node extends Model {
     $this->getConnection()->transaction(function() use ($self) {
       $self->reload();
 
-      $self->descendantsAndSelf()->select($self->getKeyName())->lockForUpdate()->get();
+      $self->descendantsAndSelf()->select($self->getKeyName())/*->lockForUpdate()*/->get();
 
       $oldDepth = !is_null($self->getDepth()) ? $self->getDepth() : 0;
 
@@ -1136,7 +1136,7 @@ abstract class Node extends Model {
       $rgt    = $self->getRight();
 
       // Apply a lock to the rows which fall past the deletion point
-      $self->newNestedSetQuery()->where($lftCol, '>=', $lft)->select($self->getKeyName())->lockForUpdate()->get();
+      $self->newNestedSetQuery()->where($lftCol, '>=', $lft)->select($self->getKeyName())/*->lockForUpdate()*/->get();
 
       // Prune children
       $self->newNestedSetQuery()->where($lftCol, '>', $lft)->where($rgtCol, '<', $rgt)->delete();

@@ -386,7 +386,7 @@ class Move {
       ->where($this->node->getLeftColumnName(), '>=', $lft)
       ->where($this->node->getRightColumnName(), '<=', $rgt)
       ->select($this->node->getKeyName())
-      ->lockForUpdate()
+      /*->lockForUpdate()*/
       ->get();
   }
 }
