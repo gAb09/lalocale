@@ -124,7 +124,11 @@ class UtilisateurController extends \BaseController {
 
 		$utilisateur = Utilisateur::find($id);
 		$utilisateur->fill(Input::except('_token', '_method'));
-		$utilisateur->save();
+
+		if ($utilisateur->save()) {
+		Session::flash('success', 'Les modifications ont été prises en compte');              
+		}
+
 		return Redirect::back();
 	}
 
@@ -135,6 +139,7 @@ class UtilisateurController extends \BaseController {
 		$utilisateur = Utilisateur::find($id);
 		$utilisateur->password = Hash::Make(Input::get('new_mdp'));
 		$utilisateur->save();
+		Session::flash('success', 'Le changement de mot de passe a bien été pris en compte.');              
 		return Redirect::back();
 	}
 
