@@ -61,7 +61,6 @@ class Utilisateur extends Eloquent implements UserInterface, RemindableInterface
 	{
 		return $this->email;
 	}
-
 	/**
 	 * Get the token value for the "remember me" session.
 	 *
